@@ -7,9 +7,10 @@ import java.util.List;
 
 public interface ConsultantService {
     public ConsultantResponseDto save(ConsultantRequestDto consultantRequestDto);
-    public ConsultantResponseDto update(ConsultantRequestDto consultantRequestDto );
-    public void delete(ConsultantResponseDto consultantEntity);
+    public ConsultantResponseDto update(ConsultantRequestDto consultantRequestDto ) throws Exception;
+    public void delete(String id) throws Exception;
     public ConsultantResponseDto getConsultant(String id);
     public ConsultantResponseDto getConsultantByEmail(String email);
-    public List<ConsultantResponseDto> getConsultants(String id);
+    public List<ConsultantResponseDto> getAllConsultants();
+    public List<ConsultantResponseDto> getConsultantsByName(String name);
 }

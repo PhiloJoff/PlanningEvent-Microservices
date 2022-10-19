@@ -7,8 +7,10 @@ import fr.philobox.planningevent.consultantservice.mappers.ConsultantMapper;
 import fr.philobox.planningevent.consultantservice.repositories.ConsultantRepository;
 import lombok.AllArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 public class ConsultantServiceImpl implements ConsultantService {
@@ -25,27 +27,67 @@ public class ConsultantServiceImpl implements ConsultantService {
     }
 
     @Override
-    public ConsultantResponseDto update(ConsultantRequestDto consultantRequestDto) {
-        return null;
+    public ConsultantResponseDto update(ConsultantRequestDto consultantRequestDto) throws Exception {
+        ConsultantEntity consultantEntityToUpdate = consultantMapper.consultantRequestDtoToConsultant(consultantRequestDto);
+        ConsultantEntity consultantEntity = consultantRepository.findById(consultantEntityToUpdate.getId()).orElse(null);
+        if (consultantEntity == null)
+            throw new Exception("Consultant to update does not exist");
+
+        if (!consultantEntity.getFirstname().equals(consultantEntityToUpdate.getFirstname()))
+            consultantEntity.setFirstname(consultantEntityToUpdate.getFirstname());
+
+        if (!consultantEntity.getLastname().equals(consultantEntityToUpdate.getLastname()))
+            consultantEntity.setLastname(consultantEntityToUpdate.getLastname());
+
+        if (!consultantEntity.getEmail().equals(consultantEntityToUpdate.getEmail()))
+            consultantEntity.setEmail(consultantEntityToUpdate.getEmail());
+
+        if (consultantEntity.getTimeCounter() != (consultantEntityToUpdate.getTimeCounter()))
+            consultantEntity.setTimeCounter(consultantEntityToUpdate.getTimeCounter());
+
+        if (!consultantEntity.getShiftEnum().equals(consultantEntityToUpdate.getShiftEnum()))
+            consultantEntity.setShiftEnum(consultantEntityToUpdate.getShiftEnum());
+
+        ConsultantEntity consultantSaved = consultantRepository.save(consultantEntity);
+
+        return consultantMapper.consultantToConsultantResponseDto(consultantSaved);
     }
 
     @Override
-    public void delete(ConsultantResponseDto consultant$ntity) {
+    public void delete(String id) throws Exception {
+        ConsultantEntity consultantEntity = consultantRepository.findById(id).orElse(null);
+        if(consultantEntity != null)
+            consultantRepository.delete(consultantEntity);
+        else
+            throw new Exception("Consultant to delete does not exist");
 
     }
 
     @Override
     public ConsultantResponseDto getConsultant(String id) {
-        return null;
+        ConsultantEntity consultantEntity = consultantRepository.findById(id).orElse(null);
+        if (consultantEntity == null)
+            return null;
+        return consultantMapper.consultantToConsultantResponseDto(consultantEntity);
     }
 
     @Override
     public ConsultantResponseDto getConsultantByEmail(String email) {
-        return null;
+        ConsultantEntity consultantEntity = consultantRepository.findByEmail(email);
+        return consultantMapper.consultantToConsultantResponseDto(consultantEntity);
     }
 
     @Override
-    public List<ConsultantResponseDto> getConsultants(String id) {
-        return null;
+    public List<ConsultantResponseDto> getAllConsultants() {
+        List<ConsultantResponseDto> consultantResponseDtos = consultantRepository.findAll().stream().map(consultant -> consultantMapper.consultantToConsultantResponseDto(consultant)).collect(Collectors.toList());
+
+        return consultantResponseDtos;
     }
+
+    @Override
+    public List<ConsultantResponseDto> getConsultantsByName(String name) {
+        List<ConsultantResponseDto> consultantResponseDtos = consultantRepository.findAllByFirstnameContainsOrLastnameContains(name).stream().map(consultant -> consultantMapper.consultantToConsultantResponseDto(consultant)).collect(Collectors.toList());
+        return consultantResponseDtos;
+    }
+
 }
