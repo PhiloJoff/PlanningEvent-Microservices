@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface ConsultantRepository extends JpaRepository<ConsultantEntity, String> {
     ConsultantEntity findByEmail(String email);
-    List<ConsultantEntity> findAllByFirstnameContainsOrLastnameContains(String name);
+    List<ConsultantEntity> findAllByFirstnameContainsOrLastnameContains(String firstname, String lastname);
 }

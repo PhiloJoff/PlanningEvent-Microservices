@@ -6,6 +6,8 @@ import fr.philobox.planningevent.consultantservice.entities.ConsultantEntity;
 import fr.philobox.planningevent.consultantservice.mappers.ConsultantMapper;
 import fr.philobox.planningevent.consultantservice.repositories.ConsultantRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +15,8 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
+@Service
+@Transactional
 public class ConsultantServiceImpl implements ConsultantService {
     private ConsultantRepository consultantRepository;
     private ConsultantMapper consultantMapper;
@@ -85,8 +89,8 @@ public class ConsultantServiceImpl implements ConsultantService {
     }
 
     @Override
-    public List<ConsultantResponseDto> getConsultantsByName(String name) {
-        List<ConsultantResponseDto> consultantResponseDtos = consultantRepository.findAllByFirstnameContainsOrLastnameContains(name).stream().map(consultant -> consultantMapper.consultantToConsultantResponseDto(consultant)).collect(Collectors.toList());
+    public List<ConsultantResponseDto> getConsultantsByFirstnameOrLastname(String firstname, String lastname) {
+        List<ConsultantResponseDto> consultantResponseDtos = consultantRepository.findAllByFirstnameContainsOrLastnameContains(firstname, lastname).stream().map(consultant -> consultantMapper.consultantToConsultantResponseDto(consultant)).collect(Collectors.toList());
         return consultantResponseDtos;
     }
 

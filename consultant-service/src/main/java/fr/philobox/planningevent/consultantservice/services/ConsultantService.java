@@ -12,5 +12,5 @@ public interface ConsultantService {
     public ConsultantResponseDto getConsultant(String id);
     public ConsultantResponseDto getConsultantByEmail(String email);
     public List<ConsultantResponseDto> getAllConsultants();
-    public List<ConsultantResponseDto> getConsultantsByName(String name);
+    public List<ConsultantResponseDto> getConsultantsByFirstnameOrLastname(String firstname, String lastname);
 }

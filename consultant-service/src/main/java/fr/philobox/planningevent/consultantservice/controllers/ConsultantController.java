@@ -39,8 +39,9 @@ public class ConsultantController {
         return consultantService.getAllConsultants();
     }
 
-    @GetMapping(path="/all")
-    public List<ConsultantResponseDto> getAllConsultants(@RequestParam(value="name", defaultValue = "") String name) {
-        return consultantService.getConsultantsByName(name);
+    @GetMapping(path="/all/filters")
+    public List<ConsultantResponseDto> getAllConsultantsByFirstnameOrLastname(@RequestParam(value="firstname", defaultValue = "") String firstname,
+                                                         @RequestParam(value = "lastname", defaultValue = "") String lastname) {
+        return consultantService.getConsultantsByFirstnameOrLastname(firstname, lastname);
     }
 }

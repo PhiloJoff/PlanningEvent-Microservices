@@ -11,5 +11,6 @@ public class ConsultantResponseDto {
     private String firstname;
     private String lastname;
     private String email;
+    private int timeCounter;
     private ShiftEnum shift;
 }
