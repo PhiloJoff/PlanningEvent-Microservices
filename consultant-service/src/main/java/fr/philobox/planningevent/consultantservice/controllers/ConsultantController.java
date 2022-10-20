@@ -14,23 +14,23 @@ import java.util.List;
 public class ConsultantController {
     private ConsultantService consultantService;
 
-    @GetMapping(path="/consultant")
-    public ConsultantResponseDto getConsultant(@RequestBody(required = true) String id) {
+    @GetMapping(path="/consultant/{id}")
+    public ConsultantResponseDto getConsultant(@PathVariable String id) {
         return consultantService.getConsultant(id);
     }
 
-    @PostMapping(path="/consultant")
+    @PostMapping(path="/consultant/add")
     public ConsultantResponseDto saveConsultant(@RequestBody ConsultantRequestDto consultantRequestDto) {
         return consultantService.save(consultantRequestDto);
     }
 
-    @PutMapping(path = "/consultant")
+    @PutMapping(path = "/consultant/update")
     public ConsultantResponseDto updateConsultant(@RequestBody ConsultantRequestDto consultantRequestDto) throws Exception {
         return consultantService.update(consultantRequestDto);
     }
 
-    @DeleteMapping(path = "/consultant")
-    public void deleteConsultant(@RequestBody String id) throws Exception {
+    @DeleteMapping(path = "/consultant/delete")
+    public void deleteConsultant(@PathVariable String id) throws Exception {
         consultantService.delete(id);
     }
 
@@ -41,7 +41,12 @@ public class ConsultantController {
 
     @GetMapping(path="/all/filters")
     public List<ConsultantResponseDto> getAllConsultantsByFirstnameOrLastname(@RequestParam(value="firstname", defaultValue = "") String firstname,
-                                                         @RequestParam(value = "lastname", defaultValue = "") String lastname) {
+                                                                              @RequestParam(value = "lastname", defaultValue = "") String lastname) {
         return consultantService.getConsultantsByFirstnameOrLastname(firstname, lastname);
+    }
+
+    @GetMapping(path="/consultant/{email}")
+    public ConsultantResponseDto getConsultantsByEmail(@PathVariable String email) {
+        return consultantService.getConsultantByEmail(email);
     }
 }
