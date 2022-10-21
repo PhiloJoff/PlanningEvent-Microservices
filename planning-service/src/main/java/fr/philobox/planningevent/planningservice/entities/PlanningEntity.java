@@ -17,11 +17,10 @@ public class PlanningEntity {
     private String id;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER)
     private List<MeetEntity> meetEntityList;
 
-    @NotNull
-    @OneToOne(fetch = FetchType.EAGER)
+    @Transient
     private ConsultantEntity consultantEntity;
 
 

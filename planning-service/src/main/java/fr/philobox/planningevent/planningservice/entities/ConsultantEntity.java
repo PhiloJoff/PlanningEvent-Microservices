@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -17,5 +16,5 @@ public class ConsultantEntity {
     private String email;
     private int timeCounter;
     private ShiftEnum shift;
-    private PlanningEntity planningEntityP;
+    private PlanningEntity planningEntity;
 }
