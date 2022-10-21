@@ -1,9 +1,9 @@
 package fr.philobox.planningevent.consultantservice;
 
 import fr.philobox.planningevent.consultantservice.dtos.ConsultantRequestDto;
-import fr.philobox.planningevent.consultantservice.entities.ConsultantEntity;
+import fr.philobox.planningevent.consultantservice.entities.ConsultantEntity;;
+import fr.philobox.planningevent.consultantservice.entities.enums.ShiftEnum;
 import fr.philobox.planningevent.consultantservice.repositories.ConsultantRepository;
-import fr.philobox.planningevent.consultantservice.services.ConsultantService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,6 +1,6 @@
 package fr.philobox.planningevent.consultantservice.entities;
 
-import fr.philobox.planningevent.consultantservice.ShiftEnum;
+import fr.philobox.planningevent.consultantservice.entities.enums.ShiftEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
